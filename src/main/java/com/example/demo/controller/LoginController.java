@@ -49,7 +49,7 @@ public class LoginController {
 
 
         if(session.isNew()){
-            session.setMaxInactiveInterval(100);
+//            session.setMaxInactiveInterval(100);
             for (User user : repository.findAll()) {
                 if (user.getUsername().equals(username.trim())) {
                     if (bCryptPasswordEncoder.matches(headerPassword,user.getPassword())) {
@@ -61,6 +61,7 @@ public class LoginController {
                             System.out.println("****user toke is****");
                             System.out.println("randomtoken"+username);
                             session.setAttribute("token","randomtoken"+username);
+
                             return "User Logged In Successfully!";
                         } else {
                             System.out.println("****user toke is****");

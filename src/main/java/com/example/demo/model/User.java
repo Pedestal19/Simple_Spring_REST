@@ -17,6 +17,7 @@ public class User {
     private String password;
     private long balance;
 
+
     public boolean isLoggedIn() {
         return isLoggedIn;
     }

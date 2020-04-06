@@ -15,6 +15,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     UserRepository userRepository;
 
+
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handle) throws Exception {
         String uri = request.getRequestURI();
@@ -57,22 +59,63 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
-        else if(uri.endsWith("checkbalance")||uri.endsWith("message")){
-            String token = (String) request.getSession(false).getAttribute("token");
+        else if(uri.endsWith("checkbalance")){
+
+            String token = (String) request.getSession().getAttribute("token");
+//            String token = Session.getAttribute("token");
+
             System.out.println("==== token is ====");
             System.out.println(token);
 
             String username = request.getParameter("username");
+            System.out.println("==== username is ====");
+            System.out.println(username);
 
+//            System.out.println("username is ::"+username);
+          /*  if(token.equals("randomtoken"+token)){
+                System.out.println(true);
+            }*/
             if(token == null || !token.equals("randomtoken"+username)){
+                System.out.println(token);
                 System.out.println("Invalid Check Balance Request");
                 return false;
             }
+
+
 //            if(!userRepository.findByUsername(request.getSession().getAttribute("u").toString()).isLoggedIn()){
 //                System.out.println("Invalid Check Balance Request");
 //                return false;
 //            }
-//            return true;
+            return true;
+        }
+        else if(uri.endsWith("message")){
+
+            String token = (String) request.getSession().getAttribute("token");
+//            String token = Session.getAttribute("token");
+
+            System.out.println("==== token is ====");
+            System.out.println(token);
+
+            String username = request.getParameter("username");
+            System.out.println("==== username is ====");
+            System.out.println(username);
+
+//            System.out.println("username is ::"+username);
+          /*  if(token.equals("randomtoken"+token)){
+                System.out.println(true);
+            }*/
+            if(token == null){
+                System.out.println(token);
+                System.out.println("Invalid Check Balance Request");
+                return false;
+            }
+
+
+//            if(!userRepository.findByUsername(request.getSession().getAttribute("u").toString()).isLoggedIn()){
+//                System.out.println("Invalid Check Balance Request");
+//                return false;
+//            }
+            return true;
         }
         else if(uri.endsWith("signup")){
             System.out.println("Redirecting to Signup Page");

@@ -7,17 +7,13 @@ package com.example.demo.model;
  */
 class Temp {
 
-    String user;
+    String session_id;
 
-    public Temp(String user) {
-        this.user = user;
+    public String getSession_id() {
+        return session_id;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
     }
 }

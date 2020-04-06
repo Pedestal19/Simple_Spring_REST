@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.service.UserRepository;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +33,13 @@ public class CheckBalanceController {
             for(User user: userRepository.findAll()){
                 if(user.getUsername().equals(username)){
                     System.out.println("Current User Balance: " + user.getBalance());
-                    return "Balance: " + user.getBalance();
+                    try {
+                        JSONObject k = new JSONObject();
+                        return k.put("balance", user.getBalance()).toString();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    return "{Balance: " + user.getBalance()+"}";
                 }
             }
 
